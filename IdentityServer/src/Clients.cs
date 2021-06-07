@@ -116,9 +116,39 @@ namespace IdentityServerHost
                     
                     AllowedGrantTypes = GrantTypes.Code,
 
-                    RedirectUris = { "https://localhost:44300/signin-oidc" },
-                    FrontChannelLogoutUri = "https://localhost:44300/signout-oidc",
-                    PostLogoutRedirectUris = { "https://localhost:44300/signout-callback-oidc" },
+                    RedirectUris = { "https://localhost:44302/signin-oidc" },
+                    FrontChannelLogoutUri = "https://localhost:44302/signout-oidc",
+                    PostLogoutRedirectUris = { "https://localhost:44302/signout-callback-oidc" },
+
+                    AllowOfflineAccess = true,
+                    AllowedScopes = { "openid", "profile", "scope1", "scope2" }
+                },
+                new Client
+                {
+                    ClientId = "interactive.mvc.sample.jarjwt2",
+                    
+                    // force client to use signed authorize request
+                    RequireRequestObject = true,
+                    
+                    // this client uses an RSA key as client secret
+                    // this key is used for both validating the signature on the authorize request
+                    // and for client authentication
+                    // see https://docs.duendesoftware.com/identityserver/v5/advanced/jar/
+                    // and https://docs.duendesoftware.com/identityserver/v5/tokens/authentication/jwt/
+                    ClientSecrets =
+                    {
+                        new Secret
+                        {
+                            Type = IdentityServerConstants.SecretTypes.JsonWebKey,
+                            Value = "{'e':'AQAB','kid':'ZzAjSnraU3bkWGnnAqLapYGpTyNfLbjbzgAPbbW2GEA','kty':'RSA','n':'wWwQFtSzeRjjerpEM5Rmqz_DsNaZ9S1Bw6UbZkDLowuuTCjBWUax0vBMMxdy6XjEEK4Oq9lKMvx9JzjmeJf1knoqSNrox3Ka0rnxXpNAz6sATvme8p9mTXyp0cX4lF4U2J54xa2_S9NF5QWvpXvBeC4GAJx7QaSw4zrUkrc6XyaAiFnLhQEwKJCwUw4NOqIuYvYp_IXhw-5Ti_icDlZS-282PcccnBeOcX7vc21pozibIdmZJKqXNsL1Ibx5Nkx1F1jLnekJAmdaACDjYRLL_6n3W4wUp19UvzB1lGtXcJKLLkqB6YDiZNu16OSiSprfmrRXvYmvD8m6Fnl5aetgKw'}"
+                        }
+                    },
+                    
+                    AllowedGrantTypes = GrantTypes.Code,
+
+                    RedirectUris = { "https://localhost:44303/signin-oidc" },
+                    FrontChannelLogoutUri = "https://localhost:44303/signout-oidc",
+                    PostLogoutRedirectUris = { "https://localhost:44303/signout-callback-oidc" },
 
                     AllowOfflineAccess = true,
                     AllowedScopes = { "openid", "profile", "scope1", "scope2" }
